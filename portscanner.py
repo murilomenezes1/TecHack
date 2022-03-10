@@ -3,7 +3,7 @@ from socket import *
 from threading import *
 screenLock = Semaphore(value=1)
 
-def connScan(tgtHost, tftPort):
+def connScan(tgtHost, tgtPort):
 
 	try: 
 
@@ -13,14 +13,13 @@ def connScan(tgtHost, tftPort):
 		results = connSkt.recv(100)
 		screenLock.acquire()
 
-		print '[+]%d/tcp open'% tgtPort
-		print '[+] ' + str(results)
+		print('[+]%d/tcp open'% tgtPort)
+		print('[+] ' + str(results))
 
 	except:
 		
 		screenLock.acquire()
-		print '[-]%d/tcp closed'% tgtPort
-
+		print('[-]%d/tcp closed'% tgtPort)
 	finally:
 
 		screenLock.release()
@@ -34,18 +33,18 @@ def portScan(tgtHost, tgtPorts):
 
 	except:
 
-		print "[-] Cannot resolve '%s': Unknown host"%tgtHost
+		print("[-] Cannot resolve '%s': Unknown host"%tgtHost)
 
 		return
 
 	try:
 
 		tgtName = gethostbyaddr(tgtIP)
-		print '\n[+] Scan Results for: ' + tgtName[0]
+		print('\n[+] Scan Results for: ' + tgtName[0])
 
 	except:
 
-		print '\n[+] Scan Results for: ' + tgtIP
+		print('\n[+] Scan Results for: ' + tgtIP)
 
 	setdefaulttimeout(1)
 
@@ -70,7 +69,7 @@ def main():
 	tgtPorts = str(options.tgtPort).split(', ')
 	if (tgtHost == None) | (tgtPorts[0] == None):
 
-		print parser.usage
+		print(parser.usage)
 		exit()
 
 	portScan(tgtHost, tgtPorts)
